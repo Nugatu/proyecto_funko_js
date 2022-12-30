@@ -32,7 +32,7 @@ function productos () {
                 console.log ("Se agregó la figura Vegeta al carrito");
                 break;
             case "3":
-                console.log ("Se agregó la figura Vegeta al carrito");
+                console.log ("Se agregó la figura Lapras al carrito");
                 break;
             case "4":
                 console.log ("Se agregó la figura Capitan America al carrito");
