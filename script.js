@@ -39,7 +39,10 @@ function productos () {
                 break;
             case "5":
                 console.log ("Se agregó la figura Sylvie al carrito");
-                break;           
+                break;
+                case "6":
+                    console.log ("Se agregó la figura Edward Elric al carrito");
+                    break;            
             default:
                 alert ("El ID seleccionado es invalido." + "\nIntente nuevamente.")
     }
