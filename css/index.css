@@ -33,7 +33,9 @@
 /* Inicio Grid Site */
 #grid-site {
   display: grid;
-  grid-template-areas: "header" "main" "footer";
+  grid-template-areas: "header"
+ "main"
+ "footer";
   grid-template-columns: auto;
   grid-template-rows: 130px 1fr 175px; }
 
@@ -463,6 +465,32 @@ p {
       font-size: 20px;
       border-radius: 5px; }
 
+.colorBoton {
+  background-color: #27ca94;
+  font-family: 'Rubik', sans-serif;
+  font-size: 25px;
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+}
+      
+.colorBoton:hover {
+  background-color: green;
+}
+      
+.carrito {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+}
+.totalCarrito {
+  margin: 15px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 30px;
+  text-align: center;
+  z-index: 1;
+}
+
 /*Fin de productos en venta*/
 /*Inicio Responsive*/
 @media (max-width: 768px) {
@@ -595,7 +623,10 @@ p {
 /*Grid*/
 #grid-contact {
   display: grid;
-  grid-template-areas: "name" "mail" "phone" "comment";
+  grid-template-areas: "name"
+ "mail"
+ "phone"
+ "comment";
   grid-template-columns: auto;
   grid-template-rows: 1fr 1fr 1fr 3fr; }
 

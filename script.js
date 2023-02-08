@@ -4,77 +4,167 @@ const contrasenia = "1234";
 
 // Clase + Objetos de los prodcutos de la tienda
 class Producto {
-    constructor(nombre,precio,seccion) {
+    constructor(id,nombre,precio,seccion,img) {
+        this.id =id;
         this.nombre = nombre;
         this.precio = precio;
         this.seccion = seccion;
-        this.cantidad = 10;
+        this.img = img;
+        this.cantidad = 1;
     }
 }
 
-const harry_potter = new Producto ("harry potter", 8500, "Harry Potter");
-const vegeta = new Producto ("vegeta", 7000, "Anime");
-const lapras = new Producto ("lapras", 6375, "Anime");
-const capitan_america = new Producto ("capitan america", 8000, "Marvel");
-const sylvie = new Producto ("sylvie", 7500, "Marvel");
-const edward_elric = new Producto ("edward elric", 7200, "Anime");
+const harry_potter = new Producto (1, "harry potter", 8500, "Harry Potter", "img/harry-potter.png");
+const vegeta = new Producto (2, "vegeta", 7000, "Anime", "img/anime.png");
+const lapras = new Producto (3, "lapras", 6375, "Anime", "img/lapras.jpg");
+const capitan_america = new Producto (4, "capitan america", 8000, "Marvel", "img/capitan_america.jpg");
+const sylvie = new Producto (5, "sylvie", 7500, "Marvel", "img/loki_sylvie.jpg");
+const edward_elric = new Producto (6, "edward elric", 7200, "Anime", "img/edward.jpg");
+const minnie_mouse = new Producto (2, "Minnie Mouse (1928)",7500, "Disney", "img/minnie.jpg");
+const scarlet_witch = new Producto (4, "Scarlet Witch",7750, "Marvel", "img/scarlet_witch.jpg");
 
-const stockProductos = [harry_potter, vegeta, lapras, capitan_america, sylvie, edward_elric]
+// Array con el catalogo de productos
+const stockProductos = [harry_potter, vegeta, lapras, capitan_america, sylvie, edward_elric, minnie_mouse,scarlet_witch]
 
-console.log ("Nuestros productos:")
-stockProductos.forEach ((producto) => {
-console.log (producto);
-})
+// Array del carrito + localstorage
+let carrito = [];
+if(localStorage.getItem("carrito")) {
+    carrito = JSON.parse(localStorage.getItem("carrito"));
+}
 
-// Función que valida los datos del usuario para ingresar al sitio
-function login () {
-    let loginUsuario = prompt ("Ingrese su usuario")
-    let logincontrasenia = prompt ("Ingrese su contraseña")
+// Aplicando DOM
+const contenedorProductos = document.getElementById("contenedorProductos");
 
-    if (loginUsuario === usuario && logincontrasenia != contrasenia) {
-        alert("La contraseña ingresada es invalida." + "\nIntentelo nuevamente.")
-    }else if (loginUsuario != usuario && logincontrasenia == contrasenia) {
-        alert("El usuario ingresado es invalido." + "\nIntentelo nuevamente.")
-    }else if (loginUsuario === usuario && logincontrasenia === contrasenia) {
-        alert("Bienvenido a la tienda!")
-        buscador()
+// Funcion para mostrar los productos
+const mostrarProductos = () =>  {
+    stockProductos.forEach((producto) => {
+        const card = document.createElement ("div");
+        card.classList.add("col-xl-3", "col-md-6", "col-xs-12");
+        card.innerHTML = `
+            <div class="products">
+                <div class="products__article">
+                    <img src="${producto.img}" alt="${producto.nombre}">
+                    <h3> ${producto.nombre}</h3>
+                    <h3> $${producto.precio}</h3>
+                    <button class="colorBoton" id="boton${producto.id}">Agregar al carrito</button>
+                </div>
+            </div>
+        `
+
+        contenedorProductos.appendChild(card);
+
+        // Agregar productos al carrito
+        const boton = document.getElementById(`boton${producto.id}`);
+        boton.addEventListener ("click", () => {
+            agregarAlCarrito(producto.id)
+        })
+    })
+}
+
+// Funcion agregar al carrito
+const agregarAlCarrito = (id) => {
+    const producto = stockProductos.find ((producto) => producto.id === id);
+    const productoEnCarrito = carrito.find ((producto) => producto.id === id);
+    if(productoEnCarrito) {
+        productoEnCarrito.cantidad++;
     }else {
-        alert ("El usuario y la contraseña ingresados son invalidos." + "\nIntentelo nuevamente.")
-    }   
-}
-login();
-
-
-// Ordenamos los productos de menor a mayor según su precio
-stockProductos.sort ( (a,b) => a.precio - b.precio);
-console.log ("Productos ordenados por menor precio:");
-console.log (stockProductos);
-
-// Productos con IVA
-const productosIva = stockProductos.map ((producto) => {
-    return {
-        nombre: producto.nombre,
-        precio: (producto.precio * 1.21)
+        carrito.push(producto);
+        localStorage.setItem("carrito", JSON.stringify(carrito));
     }
+}
+
+mostrarProductos();
+
+// Mostrar carrito
+const contenedorCarrito = document.getElementById("contenedorCarrito");
+const verCarrito = document.getElementById("verCarrito");
+
+verCarrito.addEventListener("click", () => {
+    mostrarCarrito();
 });
 
-console.log ("Productos con IVA:");
-console.log (productosIva);
+// Funcion para mostrar el carrito
+const mostrarCarrito = () => {
+    contenedorCarrito.innerHTML = "";
+    carrito.forEach((producto) => {
+        const card = document.createElement ("div");
+        card.classList.add ("col-xl-3", "col-md-6", "col-xs-12");
+        card.innerHTML = `
+            <div class="products">
+                <div class="products__article">
+                    <img src = "${producto.img}" alt="${producto.nombre}">
+                    <h3> ${producto.nombre}</h3>
+                    <h3> $${producto.precio}</h3>
+                    <h3> Cantidad: ${producto.cantidad}</h3>
+                    <button class="colorBoton" id="borrar${producto.id}">Borrar producto</button>
+                </div>
+            </div>
+        `
 
-// Precio total de los productos en el carrito
-let precioTotal = stockProductos.reduce ((acumulador, elemento) => acumulador + elemento.precio, 0);
-console.log ("El precio total de su compra es:")
-console.log (precioTotal);
+        contenedorCarrito.appendChild(card);
 
-// Buscar un producto
-function buscador () {
-let buscarProducto = prompt ("Ingrese el nombre del producto que desea buscar");
-const busqueda = stockProductos.find (producto => producto.nombre.includes(buscarProducto));
-console.log ("Resultado de la busqueda:");
-console.log (busqueda);
+        // Eliminar productos del carrito
+        const boton = document.getElementById(`borrar${producto.id}`);
+        boton.addEventListener("click", () => {
+            eliminarDelCarrito(producto.id);
+        })
+    })
+    calcularTotal();
 }
 
-// Filtrado de productos según sección Marvel
-const productosMarvel = stockProductos.filter (producto => producto.seccion === "Marvel");
-console.log ("Los productos de Marvel son los siguientes:");
-console.log (productosMarvel);
+// Funcion para borrar el producto
+const eliminarDelCarrito = (id) => {
+    const producto = carrito.find((producto) => producto.id === id);
+    const indice = carrito.indexOf(producto);
+    carrito.splice(indice, 1)
+    mostrarCarrito();
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+// Vaciar el carrito
+const vaciarCarrito = document.getElementById("vaciarCarrito");
+
+vaciarCarrito.addEventListener("click", () => {
+    borrarCarrito();
+})
+
+// Funcion para vaciar el carrito
+const borrarCarrito = () => {
+    carrito = [];
+    mostrarCarrito();
+    localStorage.clear();
+}
+
+// Valor total de la compra
+const valorTotal = document.getElementById("valorTotal");
+
+const calcularTotal = () => {
+    let totalCompra = 0;
+    carrito.forEach((producto) => {
+        totalCompra += producto.precio * producto.cantidad;
+    })
+    valorTotal.innerHTML = `$${totalCompra}`;
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

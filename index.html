@@ -35,71 +35,21 @@
                 </div>
             </nav>
         </header> 
-        <!--Fin de Header-->    
+        <!--Fin de Header-->
+
         <!--Inicio de secciones de productos-->
-        <!-- Inicio listado de categorias -->
         <main id="grid-products" class="main">
-        <h1 class="products-title">Secciones</h1>
-        <div class="main__products">
-            <section class="main__sections">
-                <ul class="main__sections__items">
-                    <li>Marvel</li>
-                    <li>Star Wars</li>
-                    <li>Harry Potter</li>
-                    <li>Anime</li>
-                    <li>Movies</li>
-                </ul>
-            </section>
-            <!-- Fin listado de categorias -->
-            <!-- Inicio de productos de venta -->
-            <section class="products">
-                <article class="products__article">
-                    <span class="sign-ofert">1</span>
-                    <img src="./img/harry-potter.png" alt="POP Harry Potter - Harry Potter">
-                    <h3>FMA - Harry Potter Vinyl Figure</h3>
-                    <h3 class="price-article">$8500</h3>
-                </article>
-                <article class="products__article">
-                    <span class="sign-ofert">2</span>
-                    <img src="./img/anime.png" alt="POP Dragon Ball - Vegeta">
-                    <h3>Dragon Ball - Vegeta Vinyl Figure</h3>
-                    <h3 class="price-article">$7000</h3>
-                </article> 
-                <article class="products__article">
-                    <span class="sign-ofert">3</span>
-                    <img src="./img/lapras.jpg" alt="POP Pokemon - Lapras">
-                    <span class="sign-ofert">3</span>
-                    <h3>Pokémon - Lapras Vinyl Figure</h3>
-                    <div class="price">
-                        <h3 class="price__article">$7500</h3>
-                        <h3 class="price__ofert">$6375</h3>
-                    </div>
-                </article>
-                <article class="products__article">
-                    <span class="sign-ofert">4</span>
-                    <img src="./img/capitan_america.jpg" alt="POP Marvel - Capitan America"> 
-                    <h3>Marvel - Capitan America Vinyl Figure</h3>
-                    <h3 class="price-article">$8000</h3>
-                </article>
-                <article class="products__article">
-                    <span class="sign-ofert">5</span>
-                    <img src="./img/loki_sylvie.jpg" alt="POP Marvel - Sylvie"> 
-                    <h3>Marvel - Sylvie Bobblehead Figure</h3>
-                    <h3 class="price-article">$7500</h3>
-                </article>
-                <article class="products__article">
-                    <span class="sign-ofert">6</span>
-                    <img src="./img/edward.jpg" alt="POP Anime - FMA: Edward">
-                    <h3>FMA - Edward Elric Vinyl Figure</h3>
-                    <div class="price">
-                        <h3 class="price__article">$8000</h3>
-                        <h3 class="price__ofert">$7200</h3>
-                    </div>
-                </article>
-            </section>
+        <h1 class="products-title text-center">Productos</h1>
+        <div id="contenedorProductos" class="row"></div>
+
+        <!-- Carrito de compras -->
+        <h2 class="products-title text-center"">Carrito de compras</h2>
+        <div class="carrito">
+            <button id="verCarrito" class="colorBoton">Ver Carrito</button>
+            <button id="vaciarCarrito" class="colorBoton">Vaciar Carrito</button>
         </div>
-        <!--Fin de productos de venta  -->
-        <!-- Fin de secciones de productos -->
+        <h3 class="totalCarrito">El valor total de la compra es: <span id="valorTotal"></span></h3>
+        <div id="contenedorCarrito" class="row"></div>
         </main> 
         <!--Inicio de footer-->
         <footer class="footer">
